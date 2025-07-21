@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🔥 Naija Roast Bot Ultimate</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    button, select, input {
+      padding: 12px 18px;
+      margin: 8px;
+      border: none;
+      border-radius: 6px;
+      background: #e50914;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover, select:hover {
+      background: #b10610;
+    }
+    #roastText {
+      margin-top: 30px;
+      font-size: 22px;
+      min-height: 80px;
+      color: #ffd700;
+    }
+    #burnLevel {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #ff4500;
+    }
+    input[type="text"] {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔥 Naija Roast Bot Ultimate</h1>
+
+  <select id="level">
+    <option value="mild">🌶 Mild Suya</option>
+    <option value="medium">🔥 Pepper Dem</option>
+    <option value="hot">💀 Nuclear Roast</option>
+  </select>
+
+  <br>
+  <button onclick="generateRoast()">Gimme Roast</button>
+  <button onclick="clapBack()">Bot Clapback</button>
+
+  <br><br>
+  <input type="text" id="userRoast" placeholder="Type your roast at the bot" />
+  <button onclick="respondToRoast()">Roast the Bot</button>
+
+  <div id="roastText"></div>
+  <div id="burnLevel"></div>
+
+  <!-- Voice Tags embedded as Base64 -->
+  <audio id="omo" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCA..."></audio>
+  <audio id="chai" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCA..."></audio>
+  <audio id="gbam" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCA..."></audio>
+
+  <script>
+    const mildRoasts = [
+      "You dey form, but your account dey humble you.",
+      "Your fashion sense na like NEPA light—always going off.",
+      "You sabi beef, but your rice never complete.",
+      "Your logic dey twist like fufu wrap.",
+      "You dey act fresh, but your socks dey beg for mercy."
+    ];
+    const mediumRoasts = [
+      "Your brain dey buffer like village network.",
+      "You dey scatter vibe like curfew notice.",
+      "You dey form boss, but na pure water you dey owe.",
+      "Even garri get more value than your ideas.",
+      "You dey drag issue like DSTV wire."
+    ];
+    const hotRoasts = [
+      "Even your shadow no follow you play again.",
+      "You wan oppress person? Go oppress your barber first.",
+      "Your destiny dey load like bad network.",
+      "Your vibe dey confuse compass.",
+      "You dey move mad, but therapy don reject you."
+    ];
+
+    const clapbacks = [
+      "You wan roast me? Try again with better grammar 😶‍🌫️",
+      "That roast na like expired jollof—dry and desperate 😶‍🌫️",
+      "I be AI, but your insult need antivirus 😶‍🌫️",
+      "You dey type loud, but your keyboard no fit save your rep 😶‍🌫️",
+      "Even spellcheck dey confuse by your aggression 😶‍🌫️"
+    ];
+
+    function generateRoast() {
+      const level = document.getElementById("level").value;
+      let roastArray = level === "mild" ? mildRoasts :
+                       level === "medium" ? mediumRoasts : hotRoasts;
+      const index = Math.floor(Math.random() * roastArray.length);
+      const roast = roastArray[index] + " 😶‍🌫️";
+      document.getElementById("roastText").innerText = roast;
+
+      let burnScore = level === "mild" ? Math.floor(Math.random() * 30) :
+                      level === "medium" ? Math.floor(Math.random() * 40) + 30 :
+                      Math.floor(Math.random() * 30) + 70;
+      let burnLabel = burnScore < 30 ? "🌶 Mild Suya" :
+                      burnScore < 70 ? "🔥 Pepper Dem" : "💀 Nuclear Roast";
+
+      document.getElementById("burnLevel").innerText = `Burn Level: ${burnScore} — ${burnLabel}`;
+      playVoiceTag(burnScore);
+    }
+
+    function clapBack() {
+      const index = Math.floor(Math.random() * clapbacks.length);
+      document.getElementById("roastText").innerText = clapbacks[index];
+      document.getElementById("burnLevel").innerText = `Bot Clapback Level: 💥 Savage AI`;
+      playVoiceTag(80);
+    }
+
+    function respondToRoast() {
+      const input = document.getElementById("userRoast").value.trim();
+      if (!input) {
+        document.getElementById("roastText").innerText = "You wan roast me? Type something first na 😒";
+        return;
+      }
+      const reply = clapbacks[Math.floor(Math.random() * clapbacks.length)];
+      document.getElementById("roastText").innerText = reply;
+      document.getElementById("burnLevel").innerText = `Bot Reacted: 🔥`;
+      playVoiceTag(75);
+    }
+
+    function playVoiceTag(burnLevel) {
+      if (burnLevel > 80) document.getElementById("gbam").play();
+      else if (burnLevel > 50) document.getElementById("chai").play();
+      else document.getElementById("omo").play();
+    }
+  </script>
+</body>
+</html>
